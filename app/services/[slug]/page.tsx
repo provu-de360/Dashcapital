@@ -9,12 +9,10 @@ type Props = {
   params: { slug: string };
 };
 
-// Pre-builds one page per service at build time (e.g. /services/mutual-fund)
 export function generateStaticParams() {
   return services.map((service) => ({ slug: service.slug }));
 }
 
-// Sets the browser tab title/description for each service page
 export function generateMetadata({ params }: Props): Metadata {
   const service = getServiceBySlug(params.slug);
 
@@ -31,7 +29,6 @@ export function generateMetadata({ params }: Props): Metadata {
 export default function ServiceDetailPage({ params }: Props) {
   const service = getServiceBySlug(params.slug);
 
-  // If someone visits a slug that doesn't exist, show the 404 page
   if (!service) {
     notFound();
   }
@@ -39,52 +36,64 @@ export default function ServiceDetailPage({ params }: Props) {
   return (
     <>
       {/* HERO */}
-      <section className="page-hero">
-        <div className="container">
-          <h1>{service.title}</h1>
-          <p>{service.description}</p>
+      <section className="bg-primary text-white py-14 md:py-20 text-center">
+        <div className="w-full max-w-[1600px] mx-auto px-5 sm:px-8">
+          <h1 className="text-white text-3xl md:text-4xl lg:text-[2.2rem] font-heading font-bold mb-2.5">
+            {service.title}
+          </h1>
+          <p className="text-[#d6dde6] text-base md:text-lg max-w-xl mx-auto">
+            {service.description}
+          </p>
         </div>
       </section>
 
       {/* INTRODUCTION + IMAGE */}
-      <section className="section">
-        <div className="container">
-          <div className="two-col">
+      <section className="py-12 md:py-20">
+        <div className="w-full max-w-[1600px] mx-auto px-5 sm:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14 items-center">
             <div>
               <Image
                 src={service.image}
                 alt={service.title}
                 width={560}
                 height={380}
+                className="w-full h-auto rounded-lg shadow-sm object-cover"
               />
             </div>
             <div>
-              <span className="eyebrow">{service.category}</span>
-              <h2 style={{ marginBottom: 16 }}>About {service.title}</h2>
-              <p style={{ color: "var(--gray-text)" }}>{service.content}</p>
+              <span className="text-secondary uppercase tracking-[1.5px] font-semibold text-xs md:text-sm mb-2.5 block font-heading">
+                {service.category}
+              </span>
+              <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary mb-4 leading-tight">
+                About {service.title}
+              </h2>
+              <p className="text-gray-text text-[0.95rem] leading-relaxed">
+                {service.content}
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* BENEFITS */}
-      <section className="section section-light">
-        <div className="container">
-          <h2 style={{ textAlign: "center", marginBottom: 40 }}>
+      <section className="py-12 md:py-20 bg-light">
+        <div className="w-full max-w-[1600px] mx-auto px-5 sm:px-8">
+          <h2 className="text-2xl md:text-3xl font-heading font-bold text-primary text-center mb-8 md:mb-10">
             Key Benefits
           </h2>
-          <div className="grid grid-2" style={{ maxWidth: 800, margin: "0 auto" }}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 max-w-[800px] mx-auto">
             {service.benefits.map((benefit) => (
               <div
                 key={benefit}
-                style={{ display: "flex", gap: 12, alignItems: "flex-start" }}
+                className="flex gap-3 items-start p-4 bg-white rounded-lg border border-border-ui/80 shadow-sm"
               >
                 <CheckCircle2
-                  size={22}
-                  color="var(--secondary-color)"
-                  style={{ flexShrink: 0, marginTop: 2 }}
+                  size={20}
+                  className="text-secondary flex-shrink-0 mt-0.5"
                 />
-                <p>{benefit}</p>
+                <p className="text-dark font-medium text-sm md:text-base leading-snug">
+                  {benefit}
+                </p>
               </div>
             ))}
           </div>
@@ -92,7 +101,7 @@ export default function ServiceDetailPage({ params }: Props) {
       </section>
 
       {/* CTA */}
-      <section className="section">
+      <section className="py-12 md:py-20">
         <CTA
           title={`Interested in ${service.title}?`}
           description="Speak to our team to see how this fits into your financial plan."

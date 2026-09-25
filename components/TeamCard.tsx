@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-// A single team member card used on the About page.
 type Props = {
   name: string;
   role: string;
@@ -9,22 +8,18 @@ type Props = {
 
 export default function TeamCard({ name, role, image }: Props) {
   return (
-    <div className="feature-card" style={{ textAlign: "center" }}>
+    <div className="bg-white border border-border-ui rounded-lg p-7 md:p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-card text-center">
       <Image
         src={image}
         alt={name}
         width={140}
         height={140}
-        style={{
-          borderRadius: "50%",
-          margin: "0 auto 16px",
-          width: "140px",
-          height: "140px",
-          objectFit: "cover",
-        }}
+        className="rounded-full mx-auto mb-4 w-[140px] h-[140px] object-cover border-2 border-border-ui shadow-sm"
       />
-      <h3>{name}</h3>
-      <p>{role}</p>
+      <h3 className="text-xl font-heading font-semibold text-primary mb-1.5">
+        {name}
+      </h3>
+      <p className="text-gray-text text-[0.95rem]">{role}</p>
     </div>
   );
 }

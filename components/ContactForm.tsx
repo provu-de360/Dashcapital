@@ -1,10 +1,5 @@
 "use client";
 
-// ContactForm needs "use client" because it uses useState to manage
-// form input values and validation errors.
-// This is a frontend-only form: it does not send data anywhere yet.
-// To connect it to email/a backend later, edit the handleSubmit function below.
-
 import { useState, FormEvent, ChangeEvent } from "react";
 
 type FormValues = {
@@ -65,9 +60,6 @@ export default function ContactForm() {
       return;
     }
 
-    // NOTE: This form is frontend-only for now.
-    // To actually send this data, connect it to an API route or a
-    // third-party form service here.
     console.log("Contact form submitted:", values);
 
     setSubmitted(true);
@@ -75,63 +67,78 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
+    <form onSubmit={handleSubmit} noValidate className="space-y-5">
       {submitted && (
-        <p className="form-success">
+        <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-lg text-sm font-medium">
           Thank you! Your message has been received. We will get back to you
           soon.
-        </p>
+        </div>
       )}
 
-      <div className="form-group">
-        <label htmlFor="name">Full Name</label>
+      <div>
+        <label htmlFor="name" className="block font-semibold text-primary mb-2 text-sm">
+          Full Name
+        </label>
         <input
           type="text"
           id="name"
           name="name"
           value={values.name}
           onChange={handleChange}
+          className="w-full px-3.5 py-3 border border-border-ui rounded-lg font-body text-base text-dark bg-white focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all"
         />
-        {errors.name && <p className="form-error">{errors.name}</p>}
+        {errors.name && <p className="text-red-600 text-xs md:text-sm mt-1.5 font-medium">{errors.name}</p>}
       </div>
 
-      <div className="form-group">
-        <label htmlFor="email">Email Address</label>
+      <div>
+        <label htmlFor="email" className="block font-semibold text-primary mb-2 text-sm">
+          Email Address
+        </label>
         <input
           type="email"
           id="email"
           name="email"
           value={values.email}
           onChange={handleChange}
+          className="w-full px-3.5 py-3 border border-border-ui rounded-lg font-body text-base text-dark bg-white focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all"
         />
-        {errors.email && <p className="form-error">{errors.email}</p>}
+        {errors.email && <p className="text-red-600 text-xs md:text-sm mt-1.5 font-medium">{errors.email}</p>}
       </div>
 
-      <div className="form-group">
-        <label htmlFor="phone">Phone Number</label>
+      <div>
+        <label htmlFor="phone" className="block font-semibold text-primary mb-2 text-sm">
+          Phone Number
+        </label>
         <input
           type="tel"
           id="phone"
           name="phone"
           value={values.phone}
           onChange={handleChange}
+          className="w-full px-3.5 py-3 border border-border-ui rounded-lg font-body text-base text-dark bg-white focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all"
         />
-        {errors.phone && <p className="form-error">{errors.phone}</p>}
+        {errors.phone && <p className="text-red-600 text-xs md:text-sm mt-1.5 font-medium">{errors.phone}</p>}
       </div>
 
-      <div className="form-group">
-        <label htmlFor="message">Message</label>
+      <div>
+        <label htmlFor="message" className="block font-semibold text-primary mb-2 text-sm">
+          Message
+        </label>
         <textarea
           id="message"
           name="message"
           rows={5}
           value={values.message}
           onChange={handleChange}
+          className="w-full px-3.5 py-3 border border-border-ui rounded-lg font-body text-base text-dark bg-white focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all"
         />
-        {errors.message && <p className="form-error">{errors.message}</p>}
+        {errors.message && <p className="text-red-600 text-xs md:text-sm mt-1.5 font-medium">{errors.message}</p>}
       </div>
 
-      <button type="submit" className="btn btn-primary">
+      <button
+        type="submit"
+        className="inline-flex items-center justify-center py-3.5 px-8 rounded-lg font-semibold tracking-wide bg-secondary text-white hover:bg-secondary-dark hover:-translate-y-0.5 transition-all duration-200 shadow-sm cursor-pointer"
+      >
         Send Message
       </button>
     </form>

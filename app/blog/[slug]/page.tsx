@@ -9,7 +9,6 @@ type Props = {
   params: { slug: string };
 };
 
-// Pre-builds one page per blog post at build time
 export function generateStaticParams() {
   return blogs.map((post) => ({ slug: post.slug }));
 }
@@ -35,23 +34,17 @@ export default function BlogPostPage({ params }: Props) {
   }
 
   return (
-    <article className="section">
-      <div className="container" style={{ maxWidth: 760 }}>
+    <article className="py-12 md:py-20">
+      <div className="w-full max-w-[760px] mx-auto px-5">
         <Link
           href="/blog"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 6,
-            color: "var(--secondary-color)",
-            fontWeight: 600,
-            marginBottom: 24,
-          }}
+          className="inline-flex items-center gap-1.5 text-secondary font-semibold hover:gap-2 transition-all mb-6 text-sm md:text-base group"
         >
-          <ArrowLeft size={16} /> Back to Blog
+          <ArrowLeft size={16} className="transition-transform group-hover:-translate-x-0.5" />
+          <span>Back to Blog</span>
         </Link>
 
-        <span className="blog-date">
+        <span className="text-secondary text-sm font-semibold mb-2 block font-heading">
           {new Date(post.date).toLocaleDateString("en-IN", {
             day: "numeric",
             month: "long",
@@ -59,17 +52,21 @@ export default function BlogPostPage({ params }: Props) {
           })}
         </span>
 
-        <h1 style={{ marginBottom: 24 }}>{post.title}</h1>
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold text-primary mb-6 leading-tight">
+          {post.title}
+        </h1>
 
-        <Image
-          src={post.image}
-          alt={post.title}
-          width={760}
-          height={400}
-          style={{ borderRadius: "var(--radius)", marginBottom: 32 }}
-        />
+        <div className="mb-8 rounded-lg overflow-hidden shadow-sm">
+          <Image
+            src={post.image}
+            alt={post.title}
+            width={760}
+            height={400}
+            className="w-full h-auto object-cover"
+          />
+        </div>
 
-        <p style={{ color: "var(--gray-text)", fontSize: "1.05rem" }}>
+        <p className="text-gray-text text-base md:text-[1.05rem] leading-relaxed">
           {post.content}
         </p>
       </div>
